@@ -309,7 +309,7 @@ for (let index of ['a', 'b'].keys()) {
 // 0
 // 1
 
-for (let elem of ['a', 'b'].values()) {
+for (let elem of ['a', 'b'].valuesOf()) {
   console.log(elem);
 }
 // 'a'
@@ -321,6 +321,18 @@ for (let [index, elem] of ['a', 'b'].entries()) {
 // 0 "a"
 // 1 "b"
 ```
+/*新添加对比知识点*／
+var arr = ['a', 'b', 'c'];
+console.log(Object.keys(arr)); // console: ['0', '1', '2']
+console.log(Object.values(arr))//["a", "b", "c"]
+
+for(let elem of Object.values(arr)){
+    console.log(elem);//a b c
+}
+for(let indexof of Object.keys(arr)){
+    console.log(indexof);//0 1 2
+}
+
 
 如果不使用`for...of`循环，可以手动调用遍历器对象的`next`方法，进行遍历。
 
@@ -374,13 +386,21 @@ if (arr.indexOf(el) !== -1) {
 下面代码用来检查当前环境是否支持该方法，如果不支持，部署一个简易的替代版本。
 
 ```javascript
+##仔细研究这个方法的实现
 const contains = (() =>
   Array.prototype.includes
     ? (arr, value) => arr.includes(value)
-    : (arr, value) => arr.some(el => el === value)
+    : (arr, value) => arr.some(el => el === value)  //见 数组方法some()
 )();
 contains(["foo", "bar"], "baz"); // => false
 ```
+##对比如下的方法仔细思考实现原理
+const contains1 = (() =>
+    (arr, value) => arr.some(el => el === value)
+)();
+console.log(contains1)
+//打印结果为：(arr, value) => arr.some(el => el === value)
+
 
 另外，Map和Set数据结构有一个`has`方法，需要注意与`includes`区分。
 

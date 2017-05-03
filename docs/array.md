@@ -394,14 +394,36 @@ const contains = (() =>
 )();
 contains(["foo", "bar"], "baz"); // => false
 ```
+```javascript
 ##对比如下的方法仔细思考实现原理
 const contains1 = (() =>
     (arr, value) => arr.some(el => el === value)
 )();
-console.log(contains1)
-//打印结果为：(arr, value) => arr.some(el => el === value)
+console.log(contains1)//打印结果为：(arr, value) => arr.some(el => el === value)
+console.log(contains1([1,2,3,4,5],2))//true
 
+const fn = (function(){
+    return 3
+})()
+console.log(fn)//3
 
+const fn2 = (function () {
+    return (
+        function (arr,value) {
+            return arr.some(function(el){
+                el===value
+            })
+        }
+    )
+})()
+console.log(fn2)
+打印值为：
+function (arr,value) {
+    return arr.some(function(el){
+        el===value
+    })
+}
+```
 另外，Map和Set数据结构有一个`has`方法，需要注意与`includes`区分。
 
 - Map结构的`has`方法，是用来查找键名的，比如`Map.prototype.has(key)`、`WeakMap.prototype.has(key)`、`Reflect.has(target, propertyKey)`。

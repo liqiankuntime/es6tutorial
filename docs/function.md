@@ -468,6 +468,17 @@ function push(array, ...items) {
   array.push(...items);
 }
 
+##和这个方法进行对比
+#var arr=[];
+#function push(array,...data){
+#  data.forEach((item)=>{
+#    array.push(item)
+#  })
+#  return array;
+#}
+#push(arr,1,2,3,4,5)//[1, 2, 3, 4, 5]
+
+
 function add(x, y) {
   return x + y;
 }

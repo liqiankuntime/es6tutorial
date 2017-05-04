@@ -484,7 +484,9 @@ function add(x, y) {
 }
 
 var numbers = [4, 38];
+var numbers2 = [4,38,2];
 add(...numbers) // 42
+console.log(...numbers2)//42
 ```
 
 上面代码中，`array.push(...items)`和`add(...numbers)`这两行，都是函数的调用，它们的都使用了扩展运算符。该运算符将一个数组，变为参数序列。
@@ -543,7 +545,8 @@ Array.prototype.push.apply(arr1, arr2);
 // ES6的写法
 var arr1 = [0, 1, 2];
 var arr2 = [3, 4, 5];
-arr1.push(...arr2);
+arr1.push(...arr2);//[0,1,2,3,4,5]
+arr1.push(arr2)//[0,1,2,[3,4,5]]
 ```
 
 上面代码的ES5写法中，`push`方法的参数不能是数组，所以只好通过`apply`方法变通使用`push`方法。有了扩展运算符，就可以直接将数组传入`push`方法。
@@ -599,6 +602,9 @@ a = list[0], rest = list.slice(1)
 const [first, ...rest] = [1, 2, 3, 4, 5];
 first // 1
 rest  // [2, 3, 4, 5]
+##对比来看：
+# const arr = [first, ...rest] = [1, 2, 3, 4, 5];
+# console.log(arr);//[1, 2, 3, 4, 5]
 
 const [first, ...rest] = [];
 first // undefined

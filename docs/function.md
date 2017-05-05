@@ -715,6 +715,8 @@ let map = new Map([
 ]);
 
 let arr = [...map.keys()]; // [1, 2, 3]
+#console.log(map)//{1 => "one", 2 => "two", 3 => "thr"}
+#console.log([...map.values()])//["one", "two", "thr", "four", "five"]
 ```
 
 Generator函数运行后，返回一个遍历器对象，因此也可以使用扩展运算符。
@@ -993,9 +995,19 @@ var id = 21;
 
 foo.call({ id: 42 });
 // id: 42
+#这一点有些错误：打印出的是 21 42；
+##普通函数时：
+#function foo3() {
+#		setTimeout(function () {
+#			console.log('id:',this.id);
+#		},1000)
+#	}
+#	var id=33;
+#	foo3.call({id:24})
+#打印的只有：33
 ```
 
-上面代码中，`setTimeout`的参数是一个箭头函数，这个箭头函数的定义生效是在`foo`函数生成时，而它的真正执行要等到100毫秒后。如果是普通函数，执行时`this`应该指向全局对象`window`，这时应该输出`21`。但是，箭头函数导致`this`总是指向函数定义生效时所在的对象（本例是`{id: 42}`），所以输出的是`42`。
+上面代码中，`setTimeout`的参数是一个箭头函数，这个箭头函数的定义‘生效’是在`foo`函数生成时，而它(箭头函数)的真正执行要等到100毫秒后。如果是普通函数，执行时`this`应该指向全局对象`window`，这时应该输出`21`。但是，箭头函数导致`this`总是指向函数定义生效时所在的对象（本例是`{id: 42}`），所以输出的是`42`。
 
 箭头函数可以让`setTimeout`里面的`this`，绑定定义时所在的作用域，而不是指向运行时所在的作用域。下面是另一个例子。
 
@@ -1110,6 +1122,16 @@ foo(2, 4, 6, 8)
   ];
 }).call({ x: 'outer' });
 // ['outer']
+
+##对比如下的代码
+#const item2 = (function () {
+#  return[
+#    (function () {
+#      return this.x;
+#   }).bind({x:'inner'})()
+#  ]
+#}).call({x:'outer'})
+# console.log(item2)//['inner']
 ```
 
 上面代码中，箭头函数没有自己的`this`，所以`bind`方法无效，内部的`this`指向外部的`this`。

@@ -225,7 +225,9 @@ foo(undefined, null)
 
 上面代码中，`length`属性的返回值，等于函数的参数个数减去指定了默认值的参数个数。比如，上面最后一个函数，定义了3个参数，其中有一个参数`c`指定了默认值，因此`length`属性等于`3`减去`1`，最后得到`2`。
 
-这是因为`length`属性的含义是，该函数预期传入的参数个数。某个参数指定默认值以后，预期传入的参数个数就不包括这个参数了。同理，rest参数也不会计入`length`属性。
+这是因为`length`属性的含义是，该函数预期传入的参数个数。某个参数指定默认值以后，预期传入的参数个数就不包括这个参数了。同理，
+
+参数也不会计入`length`属性。
 
 ```javascript
 (function(...args) {}).length // 0
@@ -409,6 +411,22 @@ function sortNumbers() {
 
 // rest参数的写法
 const sortNumbers = (...numbers) => numbers.sort();
+
+##sort完整的用法：
+#const sortnumber9 = () => {
+#    this.compare = (value1,value2) => {
+#        if(value1 < value2){
+#            return 1;
+#        }else if(value1 > value2){
+#            return -1;
+#        }else{
+#            return 0;
+#        }
+#    };
+#    return  (...numbers) => numbers.sort(this.compare);
+#};
+#console.log( sortnumber9()(1,10,16,13,11) );
+#// [16, 13, 11, 10, 1]
 ```
 
 上面代码的两种写法，比较后可以发现，rest 参数的写法更自然也更简洁。

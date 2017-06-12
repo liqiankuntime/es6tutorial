@@ -1,5 +1,4 @@
 # Class
-
 ## Class基本语法
 
 ### 概述
@@ -535,7 +534,7 @@ class ColorPoint extends Point {
 
 上面代码中，`constructor`方法和`toString`方法之中，都出现了`super`关键字，它在这里表示父类的构造函数，用来新建父类的`this`对象。
 
-子类必须在`constructor`方法中调用`super`方法，否则新建实例时会报错。这是因为子类没有自己的`this`对象，而是继承父类的`this`对象，然后对其进行加工。如果不调用`super`方法，子类就得不到`this`对象。
+子类必须在`constructor`方法中调用`super`方法，否则新建实例时会报错。这是因为子类没有自己的`this`对象，而是继承父类的`this`对象，然后对其（继承的父类的this）进行加工。如果不调用`super`方法，子类就得不到`this`对象。
 
 ```javascript
 class Point { /* ... */ }
@@ -1079,8 +1078,8 @@ class VersionedArray extends Array {
     this.history.push(this.slice());
   }
   revert() {
-    this.splice(0, this.length, ...this.history[this.history.length - 1]);
-  }
+    this.splice(0, this.length, ...this.history[this.history.length - 1]);//这里应该是this.history.length - 2
+  }
 }
 
 var x = new VersionedArray();

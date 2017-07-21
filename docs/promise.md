@@ -326,6 +326,8 @@ promise
   .then(function(value) { console.log(value) })
   .catch(function(error) { console.log(error) });
 // ok
+
+对比【Promise 指定在下一轮“事件循环”再抛出错误】
 ```
 
 上面代码中，Promise 在`resolve`语句后面，再抛出错误，不会被捕获，等于没有抛出。因为 Promise 的状态一旦改变，就永久保持该状态，不会再变了。
@@ -392,6 +394,7 @@ var promise = new Promise(function(resolve, reject) {
 promise.then(function(value) { console.log(value) });
 // ok
 // Uncaught Error: test
+对比【如果Promise状态已经变成`Resolved`，再抛出错误是无效的。】【setTimeout(fn, 0)在下一轮“事件循环”开始时执行】
 ```
 
 上面代码中，Promise 指定在下一轮“事件循环”再抛出错误，结果由于没有指定使用`try...catch`语句，就冒泡到最外层，成了未捕获的错误。因为此时，Promise的函数体已经运行结束了，所以这个错误是在Promise函数体外抛出的。

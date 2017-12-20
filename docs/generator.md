@@ -160,6 +160,29 @@ for (var f of flat(arr)) {
 }
 // 1, 2, 3, 4, 5, 6
 ```
+```javascript
+var arr = [ 1,[[2, 3], 4], [5, 6]];
+var newarr = [];
+
+
+var newflat = function(item){
+    if (typeof item !== 'number') {
+      flat(item);
+    } else {
+      return newarr.push(item);
+    }
+}
+var flat = function(a) {
+  var length = a.length;
+  for (var i = 0; i < length; i++) {
+	var item = a[i];
+	newflat(item);
+	
+  }
+};
+flat(arr);
+newarr //[1, 2, 3, 4, 5, 6]
+```
 
 另外，`yield`表达式如果用在另一个表达式之中，必须放在圆括号里面。
 
